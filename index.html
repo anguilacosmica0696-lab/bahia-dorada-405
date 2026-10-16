@@ -1,64 +1,322 @@
-document.body.innerHTML = `
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:#071827;color:white;font-family:Arial,sans-serif}
-nav{padding:24px 7%;display:flex;justify-content:space-between;background:#04111d;align-items:center}
-.gold{color:#e6c77b}
-button{padding:14px 24px;background:#d8b86c;color:#071827;border:0;cursor:pointer;font-weight:bold}
-.hero{padding:100px 8%;min-height:520px;background:linear-gradient(90deg,#061522ed,#06152235),url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1600&q=85') center/cover}
-h1{font:normal clamp(42px,7vw,75px) Georgia;max-width:650px}
-section{padding:55px 8%;text-align:center}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px}
-.card{background:#102a3b;text-align:left;padding-bottom:20px}
-.card img{width:100%;height:190px;object-fit:cover}
-.card h3,.card p,.card strong,.card button{margin:16px}
-.card p{color:#ccd5df;line-height:1.6}
-.price{color:#e6c77b;font-size:23px}
-input,select{padding:12px;background:#071827;color:white;border:1px solid #bda15e;width:100%;margin:8px 0}
-form{max-width:650px;margin:auto;display:grid;gap:12px}
-footer{padding:30px;text-align:center;background:#04111d;color:#e6c77b}
-</style>
-<nav><b class="gold">✦ BAHÍA DORADA RESORT</b><a href="#reservar"><button>RESERVAR</button></a></nav>
-<header class="hero">
-<p class="gold">REPÚBLICA DOMINICANA · ULTRA LUXURY</p>
-<h1>El lujo europeo, el alma del Caribe.</h1>
-<p>Una experiencia exclusiva frente a las aguas turquesas del Caribe.</p>
-<h2 class="gold">◆ ◆ ◆ ◆ ◆</h2>
-<a href="#habitaciones"><button>EXPLORAR EL RESORT</button></a>
-</header>
-<section><p class="gold">UNA DISTINCIÓN EXCLUSIVA</p><h2>Hospitalidad extraordinaria</h2><p>Diseñado para quienes buscan elegancia, privacidad y experiencias inolvidables.</p></section>
-<section id="habitaciones">
-<p class="gold">ALOJAMIENTOS DE LUJO</p><h2>Nuestras habitaciones</h2>
-<div class="grid">
-<div class="card"><img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80"><h3>Suite Dorada</h3><p>Elegancia y confort tropical.</p><strong class="price">US$280 / noche</strong><br><button onclick="elegir(280)">SELECCIONAR</button></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80"><h3>Suite Presidencial</h3><p>Espacios amplios y servicio premium.</p><strong class="price">US$650 / noche</strong><br><button onclick="elegir(650)">SELECCIONAR</button></div>
-<div class="card"><img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80"><h3>Villa Real</h3><p>Privacidad y lujo incomparable.</p><strong class="price">US$950 / noche</strong><br><button onclick="elegir(950)">SELECCIONAR</button></div>
-</div>
-</section>
-<section><p class="gold">EXPERIENCIAS</p><div class="grid"><div><h3>Spa exclusivo</h3><p>Bienestar y relajación.</p></div><div><h3>Piscina infinita</h3><p>Vistas al mar Caribe.</p></div><div><h3>Alta gastronomía</h3><p>Sabores caribeños y europeos.</p></div></div></section>
-<section id="reservar"><p class="gold">PLANIFICA TU ESTANCIA</p><h2>Calcula tu reserva</h2>
-<form id="reserva">
-<label>Habitación<select id="precio"><option value="280">Suite Dorada</option><option value="650">Suite Presidencial</option><option value="950">Villa Real</option></select></label>
-<label>Fecha de entrada<input id="entrada" type="date" required></label>
-<label>Fecha de salida<input id="salida" type="date" required></label>
-<label>Huéspedes<select id="personas"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
-<button type="submit">CALCULAR PRECIO</button><h3 id="total"></h3>
-</form>
-</section>
-<footer>◆ BAHÍA DORADA RESORT ◆<p>Lujo caribeño · Elegancia sin fronteras</p><small>Concepto ficticio. Precios ilustrativos; no confirma reservas.</small></footer>
-`;
-function elegir(p){
-document.getElementById('precio').value=p;
-document.getElementById('reservar').scrollIntoView({behavior:'smooth'});
-}
-document.getElementById('entrada').min=new Date().toISOString().slice(0,10);
-document.getElementById('entrada').onchange=()=>{
-document.getElementById('salida').min=document.getElementById('entrada').value;
-};
-document.getElementById('reserva').onsubmit=e=>{
-e.preventDefault();
-let a=new Date(document.getElementById('entrada').value+'T12:00:00');
-let b=new Date(document.getElementById('salida').value+'T12:00:00');
-let n=Math.round((b-a)/86400000);
-document.getElementById('total').textContent=n<1?'Elige una salida posterior a la entrada.':'Total estimado: US$'+(n*Number(document.getElementById('precio').value)).toLocaleString('en-US')+' por '+n+' noche(s).';
-};
+```html
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costa Dorada Luxury Resort & Spa | Puerto Plata, República Dominicana</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#E5C158',
+                            500: '#D4AF37',
+                            600: '#B89320',
+                        },
+                        caribbean: {
+                            50: '#F2F9F9',
+                            100: '#E1F2F2',
+                            500: '#00A896',
+                            800: '#028090',
+                            900: '#05668D',
+                        },
+                        navy: {
+                            800: '#111927',
+                            900: '#0B0F19',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .hero-overlay {
+            background: linear-gradient(180deg, rgba(11, 15, 25, 0.6) 0%, rgba(11, 15, 25, 0.4) 50%, rgba(11, 15, 25, 0.8) 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-dark {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #028090;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+    </style>
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-gold-500 selection:text-white">
+
+    <!-- HEADER / NAVIGATION -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-full border-2 border-gold-500 flex items-center justify-center text-gold-500 transition-transform duration-300 group-hover:rotate-45">
+                        <i class="fa-solid me-0 fa-umbrella-beach text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-xl sm:text-2xl font-bold tracking-wider text-white uppercase leading-none">Costa Dorada</span>
+                        <span class="text-[10px] tracking-[0.25em] text-gold-400 font-semibold uppercase">Resort & Spa • Puerto Plata</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-white/90">
+                    <a href="#inicio" class="hover:text-gold-400 transition-colors py-1">Inicio</a>
+                    <a href="#experiencia" class="hover:text-gold-400 transition-colors py-1">Experiencia</a>
+                    <a href="#habitaciones" class="hover:text-gold-400 transition-colors py-1">Habitaciones</a>
+                    <a href="#amenidades" class="hover:text-gold-400 transition-colors py-1">Servicios</a>
+                    <a href="#excursiones" class="hover:text-gold-400 transition-colors py-1">Excursiones</a>
+                    <a href="#contacto" class="hover:text-gold-400 transition-colors py-1">Contacto</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button onclick="openBookingModal()" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-navy-900 font-semibold px-6 py-2.5 rounded-full shadow-lg shadow-gold-500/20 hover:shadow-gold-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+                        <i class="fa-regular fa-calendar-check mr-2"></i> Reservar Ahora
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-white text-2xl focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-navy-900/95 backdrop-blur-lg border-b border-gold-500/20 px-6 py-6 transition-all duration-300">
+            <div class="flex flex-col gap-4 text-white text-base">
+                <a href="#inicio" onclick="toggleMobileMenu()" class="hover:text-gold-400">Inicio</a>
+                <a href="#experiencia" onclick="toggleMobileMenu()" class="hover:text-gold-400">Experiencia</a>
+                <a href="#habitaciones" onclick="toggleMobileMenu()" class="hover:text-gold-400">Habitaciones</a>
+                <a href="#amenidades" onclick="toggleMobileMenu()" class="hover:text-gold-400">Servicios</a>
+                <a href="#excursiones" onclick="toggleMobileMenu()" class="hover:text-gold-400">Excursiones</a>
+                <a href="#contacto" onclick="toggleMobileMenu()" class="hover:text-gold-400">Contacto</a>
+                <button onclick="toggleMobileMenu(); openBookingModal()" class="w-full mt-2 bg-gold-500 text-navy-900 font-bold py-3 rounded-full text-center">
+                    Reservar Ahora
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center pt-20 pb-16 overflow-hidden">
+        <!-- Hero Background Image Slider Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2000&q=80" alt="Costa Dorada Luxury Resort" class="w-full h-full object-cover object-center scale-105 animate-pulse duration-[10000ms]">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white mt-12">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-gold-400 text-xs sm:text-sm font-medium tracking-widest uppercase mb-6">
+                <i class="fa-solid fa-star text-xs"></i> El Santuario del Caribe • Puerto Plata <i class="fa-solid fa-star text-xs"></i>
+            </div>
+
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight max-w-5xl mx-auto mb-6">
+                Descubre el Paraíso Terrenos de <span class="italic text-transparent bg-clip-text bg-gradient-to-r from-gold-400 via-amber-200 to-gold-500">Costa Dorada</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-200 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                Sumérgete en el lujo caribeño entre aguas turquesas, arena dorada y atardeceres inolvidables en la costa norte de la República Dominicana.
+            </p>
+
+            <!-- QUICK SEARCH / BOOKING BAR -->
+            <div class="max-w-5xl mx-auto glass-card rounded-2xl sm:rounded-full p-4 sm:p-3 shadow-2xl text-slate-800 border border-white/40">
+                <form onsubmit="handleQuickSearch(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-center">
+                    
+                    <!-- Check-In -->
+                    <div class="flex flex-col text-left px-4 py-2 bg-white/60 rounded-xl sm:rounded-full border border-slate-200/60 focus-within:border-gold-500">
+                        <label class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Llegada</label>
+                        <input type="date" id="hero-checkin" required class="bg-transparent text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer">
+                    </div>
+
+                    <!-- Check-Out -->
+                    <div class="flex flex-col text-left px-4 py-2 bg-white/60 rounded-xl sm:rounded-full border border-slate-200/60 focus-within:border-gold-500">
+                        <label class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Salida</label>
+                        <input type="date" id="hero-checkout" required class="bg-transparent text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer">
+                    </div>
+
+                    <!-- Guests -->
+                    <div class="flex flex-col text-left px-4 py-2 bg-white/60 rounded-xl sm:rounded-full border border-slate-200/60">
+                        <label class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Huéspedes</label>
+                        <select id="hero-guests" class="bg-transparent text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer">
+                            <option value="1">1 Adulto</option>
+                            <option value="2" selected>2 Adultos</option>
+                            <option value="3">2 Adultos + 1 Niño</option>
+                            <option value="4">4 Personas (Familia)</option>
+                        </select>
+                    </div>
+
+                    <!-- Room Type -->
+                    <div class="flex flex-col text-left px-4 py-2 bg-white/60 rounded-xl sm:rounded-full border border-slate-200/60">
+                        <label class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Tipo de Suite</label>
+                        <select id="hero-room-type" class="bg-transparent text-sm font-semibold text-slate-800 focus:outline-none cursor-pointer">
+                            <option value="deluxe">Deluxe Ocean View</option>
+                            <option value="presidencial">Suite Presidencial</option>
+                            <option value="villa">Villa Familiar Costa</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full h-full bg-gradient-to-r from-caribbean-800 to-caribbean-500 hover:from-caribbean-900 hover:to-caribbean-800 text-white font-semibold py-3.5 px-6 rounded-xl sm:rounded-full shadow-lg transition-all duration-300 flex items-center justify-center gap-2 group">
+                        <i class="fa-solid fa-magnifying-glass group-hover:scale-110 transition-transform"></i>
+                        <span>Buscar</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <a href="#experiencia" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 hover:text-white flex flex-col items-center gap-2 transition-colors">
+            <span class="text-xs uppercase tracking-widest">Explora</span>
+            <i class="fa-solid fa-chevron-down animate-bounce"></i>
+        </a>
+    </section>
+
+    <!-- ABOUT / EXPERIENCE SECTION -->
+    <section id="experiencia" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Image Composite -->
+                <div class="relative">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=80" alt="Resort Infinity Pool" class="w-full h-[480px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="absolute -bottom-10 -right-6 z-20 hidden sm:block w-2/3 rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Luxury Suite Interior" class="w-full h-56 object-cover">
+                    </div>
+                    <!-- Badge Overlay -->
+                    <div class="absolute top-6 left-6 z-20 bg-navy-900/90 backdrop-blur-md text-gold-400 p-4 rounded-xl border border-gold-500/30">
+                        <p class="font-serif text-3xl font-bold">5★</p>
+                        <p class="text-xs text-slate-300 font-medium">Lujo Certificado</p>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-2 text-caribbean-800 font-semibold text-xs tracking-widest uppercase">
+                        <span class="w-8 h-0.5 bg-caribbean-800"></span> La Experiencia Dorada
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-navy-900 leading-tight">
+                        Un refugio de lujo donde el océano se encuentra con la calidez caribeña
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed font-light text-lg">
+                        Ubicado en las prestigiosas costas de Puerto Plata, **Costa Dorada Resort & Spa** combina la opulencia moderna con la vibrante hospitalidad dominicana. Disfrute de vistas panorámicas al Atlántico, gastronomía de clase mundial y experiencias personalizadas diseñadas para reconectar sus sentidos.
+                    </p>
+
+                    <!-- Features Grid -->
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-caribbean-50 flex items-center justify-center text-caribbean-800 text-xl flex-shrink-0">
+                                <i class="fa-solid fa-water"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy-900">Piscina Infinita</h4>
+                                <p class="text-xs text-slate-500 mt-1">Vista de 180° al Océano Atlántico.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-caribbean-50 flex items-center justify-center text-caribbean-800 text-xl flex-shrink-0">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy-900">Alta Gastronomía</h4>
+                                <p class="text-xs text-slate-500 mt-1">4 Restaurantes gourmet a la carta.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-caribbean-50 flex items-center justify-center text-caribbean-800 text-xl flex-shrink-0">
+                                <i class="fa-solid fa-spa"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy-900">Spa Holístico</h4>
+                                <p class="text-xs text-slate-500 mt-1">Tratamientos con ingredientes locales.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-caribbean-50 flex items-center justify-center text-caribbean-800 text-xl flex-shrink-0">
+                                <i class="fa-solid fa-umbrella-beach"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy-900">Playa Privada</h4>
+                                <p class="text-xs text-slate-500 mt-1">Acceso exclusivo a arena fina.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ROOMS & SUITES SHOWCASE -->
+    <section id="habitaciones" class="py-24 bg-slate-900 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-gold-400 font-semibold text-xs tracking-widest uppercase">Alojamiento Privilegiado</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold mt-2">Habitaciones & Suites de Ensueño</h2>
+                <p class="text-slate-400 mt-4 text-base font-light">Diseñadas para ofrecer un descanso absoluto, con acabados elegantes y tecnología de vanguardia.</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex justify-center gap-3 mb-12 flex-wrap">
+                <button onclick="filterRooms('all')" class="room-filter-btn active bg-gold-500 text-navy-900 font-medium px-5 py-2 rounded-full text-sm transition-all">Todas</button>
+                <button onclick="filterRooms('deluxe')" class="room-filter-btn bg-slate-800 hover:bg-slate-700 text-white font-medium px-5 py-2 rounded-full text-sm transition-all">Deluxe</button>
+                <button onclick="filterRooms('suites')" class="room-filter-btn bg-slate-800 hover:bg-slate-700 text-white font-medium px-5 py-2 rounded-full text-sm transition-all">Suites Presidenciales</button>
+                <button onclick="filterRooms('villas')" class="room-filter-btn bg-slate-800 hover:bg-slate-700 text-white font-medium px-5 py-2 rounded-full text-sm transition-all">Villas Privadas</button>
+            </div>
+
+            <!-- Room Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="rooms-grid">
+                
+                <!-- Card 1 -->
+                <div class="room-card deluxe group bg-slate-800/80 rounded-2xl overflow-hidden border border-slate-700/60 hover:border-gold-500/50 transition-all duration-300 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80" alt="Deluxe Ocean View" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-navy-900/90 text-gold-400 font-bold px-3 py
